@@ -1,7 +1,6 @@
 import random
 import sys
 
-
 def resetBoard(board):
     for x in range(8):
         for y in range(8):
