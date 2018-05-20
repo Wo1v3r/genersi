@@ -1,8 +1,8 @@
 from game import *
+from constants import *
 import copy
 
-inf = float("inf")
-toggle_player = { 'X' : 'O' , 'O': 'X'}
+toggle_player = { PLAYER_X : PLAYER_O , PLAYER_O: PLAYER_X}
 
 def moveBoard(board,move,player):
   board = copy.deepcopy(board)
@@ -41,7 +41,6 @@ def min_val(board, depth, player):
   #this is incorrect
   if depth < 0  or len(moves) == 0:
     return evalFunc(board,player)
-
   
   for move in moves:
     new_board = moveBoard(board, move, player)
