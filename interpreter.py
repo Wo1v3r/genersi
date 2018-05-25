@@ -1,16 +1,10 @@
 from settings import functions, terminals
 
 
-def invoke(board, player ,node ,children, values):
-  resolvedValues = {}
+def invoke(board, player ,node ,values):
   evaluator = functions[node.tag]
-
-  for child in children:
-    resolvedValues[child.tag] = values[child.tag](board,player)
-
-    if callable(resolvedValues[child.tag]):
-      resolvedValues[child.tag] = values[child.tag](values)
-  
+  resolvedValues = [ _(board,player) for _ in values]
+  print(node.tag + str(resolvedValues))
   return evaluator(resolvedValues)
 
 
@@ -21,13 +15,9 @@ def parse_tree(id, tree):
     return terminals[node.tag]
 
   if not node.is_leaf() and node.tag in functions:
-    values = {}
-    values.clear()
     children = tree.children(id)
+    values = [parse_tree(child.identifier,tree) for child in children]
 
-    for child in children:
-      values[child.tag] = parse_tree(child.identifier, tree)
+    return lambda board,player: invoke(board,player,node,values)
 
-    return lambda board,player: invoke(board,player,node,children,values)
-
-  return lambda board,player: node.tag
+  return lambda board,player: int(node.tag)

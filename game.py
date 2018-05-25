@@ -123,6 +123,7 @@ def getScoreOfBoard(board):
     # Determine the score by counting the tiles. Returns a dictionary with keys 'X' and 'O'.
     xscore = 0
     oscore = 0
+    empty = 0
 
     for x in range(8):
         for y in range(8):
@@ -130,8 +131,10 @@ def getScoreOfBoard(board):
                 xscore += 1
             if board[x][y] == 'O':
                 oscore += 1
+            if board[x][y] == ' ':
+                empty += 1
 
-    return {'X':xscore, 'O':oscore}
+    return {'X':xscore, 'O':oscore, ' ': empty}
 
 def getScoreOfPlayer(board, player):
     otherPlayer = {'X': 'O', 'O': 'X'}[player]
