@@ -10,29 +10,39 @@ def moveBoard(board,move,player):
   return board
 
 
-evalFunc = None
-
-def min_max(board, player, depth, f):
-  global evalFunc
-  evalFunc = f
-
-  move_scores = []
-
+def min_max(board, player, depth, item):
   moves = getValidMoves(board,player)
+
+  if len(moves)  == 0:
+    return None
+
+  bestMove = moves[0]
+  bestMoveScore = -1000
 
   for move in moves:
     new_board = moveBoard(board, move, player)
-    move_scores.append(min_val(new_board, depth, toggle_player[player]))
+    moveScore = min_val(new_board, depth, toggle_player[player], item)
+    bestMove = move if moveScore > bestMoveScore else bestMove
+    bestMoveScore = moveScore if moveScore > bestMoveScore else bestMoveScore
 
-  index = 0
+  return bestMove
 
-  for move in moves:
-    print('MM for: ' + str(move) + ' '+ str(move_scores[index]))
-    index = index + 1
+def memoize(f):
+  cache = {}
 
-  return max(move_scores)
+  def memoized(board,depth, player, item):
+    
+    hashed = str((board,depth,player,item.id))
 
-def min_val(board, depth, player):
+    if hashed not in cache:
+      cache[hashed] = f(board,depth,player,item)
+    return cache[hashed]
+
+  return memoized
+
+evaluateBoard = memoize(min_max)
+
+def min_val(board, depth, player, item):
   depth = depth - 1
   moves = getValidMoves(board,player)
 
@@ -40,15 +50,15 @@ def min_val(board, depth, player):
 
   #this is incorrect
   if depth < 0  or len(moves) == 0:
-    return evalFunc(board,player)
+    return item.eval(board,player)
   
   for move in moves:
     new_board = moveBoard(board, move, player)
-    move_scores.append(max_val(new_board, depth, toggle_player[player]))
+    move_scores.append(max_val(new_board, depth, toggle_player[player], item))
 
   return min(move_scores)
 
-def max_val(board, depth, player):
+def max_val(board, depth, player, item):
   depth = depth - 1
   
   moves = getValidMoves(board,player)
@@ -57,10 +67,10 @@ def max_val(board, depth, player):
 
   #this is incorrect
   if depth < 0 or len(moves) == 0:
-    return evalFunc(board,player)
+    return item.eval(board,player)
 
   for move in moves:
     board = moveBoard(board, move, player)
-    move_scores.append(min_val(board, depth,toggle_player[player]))
+    move_scores.append(min_val(board, depth,toggle_player[player],item))
 
   return max(move_scores)

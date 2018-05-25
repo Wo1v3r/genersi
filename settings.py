@@ -14,12 +14,16 @@ functions = {
 
 arguments = lambda name : 3 if name == IF else 2
 
-terminals = {
-  PLAYER_X: lambda board, player: PLAYER_X,
-  PLAYER_O: lambda board, player: PLAYER_O,
-  PLAYER :lambda board, player: player,
+enums = {
+  PLAYER_X: -1,
+  PLAYER_O: -2
+}
 
-  
+terminals = {
+  PLAYER :lambda board, player: enums[player],
+  PLAYER_X: lambda board, player: enums[PLAYER_X],
+  PLAYER_O: lambda board, player: enums[PLAYER_O],
+
   PLAYER_O_SCORE: lambda board, player:  getScoreOfPlayer(board, PLAYER_O),
   PLAYER_X_SCORE: lambda board, player : getScoreOfPlayer(board, PLAYER_X),
   EMPTY: lambda board, player: getScoreOfBoard(board)[' '],

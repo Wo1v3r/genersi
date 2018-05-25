@@ -1,5 +1,6 @@
 import random
 import sys
+from constants import PLAYER_X, PLAYER_O
 
 def resetBoard(board):
     for x in range(8):
@@ -7,10 +8,10 @@ def resetBoard(board):
             board[x][y] = ' '
 
     # Starting pieces:
-    board[3][3] = 'X'
-    board[3][4] = 'O'
-    board[4][3] = 'O'
-    board[4][4] = 'X'
+    board[3][3] = PLAYER_X
+    board[3][4] = PLAYER_O
+    board[4][3] = PLAYER_O
+    board[4][4] = PLAYER_X
 
 
 def getNewBoard():
@@ -29,10 +30,10 @@ def isValidMove(board, tile, xstart, ystart):
 
     board[xstart][ystart] = tile # temporarily set the tile on the board.
 
-    if tile == 'X':
-        otherTile = 'O'
+    if tile == PLAYER_X:
+        otherTile = PLAYER_O
     else:
-        otherTile = 'X'
+        otherTile = PLAYER_X
 
     tilesToFlip = []
 
@@ -120,26 +121,39 @@ def getComputerMove(board, computerTile):
     return bestMove
 
 def getScoreOfBoard(board):
-    # Determine the score by counting the tiles. Returns a dictionary with keys 'X' and 'O'.
+    # Determine the score by counting the tiles. Returns a dictionary with keys PLAYER_X and PLAYER_O.
     xscore = 0
     oscore = 0
     empty = 0
 
     for x in range(8):
         for y in range(8):
-            if board[x][y] == 'X':
+            if board[x][y] == PLAYER_X:
                 xscore += 1
-            if board[x][y] == 'O':
+            if board[x][y] == PLAYER_O:
                 oscore += 1
             if board[x][y] == ' ':
                 empty += 1
 
-    return {'X':xscore, 'O':oscore, ' ': empty}
+    return {PLAYER_X:xscore, PLAYER_O:oscore, ' ': empty}
 
 def getScoreOfPlayer(board, player):
-    otherPlayer = {'X': 'O', 'O': 'X'}[player]
+    otherPlayer = {PLAYER_X: PLAYER_O, PLAYER_O: PLAYER_X}[player]
     score = getScoreOfBoard(board)
     return score[player] - score[otherPlayer]
+
+
+def gameOver(board):
+    return getScoreOfBoard(board)[' '] == 0
+
+def winner(board):
+    playerXScore = getScoreOfPlayer(board, PLAYER_X)
+    if playerXScore == 0:
+      return 'TIE'
+    if playerXScore > 0:
+      return PLAYER_X
+    
+    return PLAYER_O
 
 def makeMove(board, tile, xstart, ystart):
     # Place the tile on the board at xstart, ystart, and flip any of the opponent's pieces.

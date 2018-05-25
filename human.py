@@ -19,15 +19,15 @@ def drawBoard(board):
 def enterPlayerTile():
     # Lets the player type which tile they want to be.
     tile = ''
-    while not (tile == 'X' or tile == 'O'):
+    while not (tile == PLAYER_X or tile == PLAYER_O):
         print('Do you want to be X or O?')
         tile = raw_input().upper()
 
     # the first element in the tuple is the player's tile, the second is the computer's tile.
-    if tile == 'X':
-        return ['X', 'O']
+    if tile == PLAYER_X:
+        return [PLAYER_X, PLAYER_O]
     else:
-        return ['O', 'X']
+        return [PLAYER_O, PLAYER_X]
 
 def showPoints(playerTile, computerTile):
     # Prints out the current score.
@@ -125,7 +125,7 @@ def playAgain():
 #     # Display the final score.
 #     drawBoard(mainBoard)
 #     scores = getScoreOfBoard(mainBoard)
-#     print('X scored %s points. O scored %s points.' % (scores['X'], scores['O']))
+#     print('X scored %s points. O scored %s points.' % (scores[PLAYER_X], scores[PLAYER_O]))
 #     if scores[playerTile] > scores[computerTile]:
 #         print('You beat the computer by %s points! Congratulations!' % (scores[playerTile] - scores[computerTile]))
 #     elif scores[playerTile] < scores[computerTile]:

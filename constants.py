@@ -14,6 +14,5 @@ PLAYER_X_SCORE = 'getScoreOfPlayerX'
 PLAYER_O_SCORE = 'getScoreOfPlayerO'
 PLAYER_SCORE = 'getScoreOfPlayer'
 EMPTY = 'empty'
-
 PLAYER_X = 'X'
 PLAYER_O = 'O'
