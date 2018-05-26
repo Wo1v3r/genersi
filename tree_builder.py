@@ -1,5 +1,6 @@
 from settings import functions, terminals, arguments, numbers
 from treelib import Node, Tree
+import uuid
 import random
 
 class TreeBuilder:
@@ -26,3 +27,9 @@ class TreeBuilder:
     full = random.choice([True, False])
     self.grow(tree,0,full=full)
     return tree
+
+def regenerate_ids(tree):
+  nodes = [ tree[node] for node in tree.expand_tree(mode=Tree.DEPTH) ]
+  for node in nodes:
+    print(node)
+    tree.update_node(node.identifier, identifier=str(uuid.uuid1()))

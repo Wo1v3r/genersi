@@ -64,3 +64,4 @@ for _ in range(3):
     item.fitness = game.playerScore
   
   population.moveGeneration()
+  

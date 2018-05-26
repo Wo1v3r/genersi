@@ -1,5 +1,5 @@
 from interpreter import evaluate_tree
-from tree_builder import TreeBuilder
+from tree_builder import TreeBuilder, regenerate_ids
 from settings import terminals, numbers
 from treelib import Tree
 import uuid
@@ -41,12 +41,14 @@ class IndividualFactory:
     tree = None
 
     while tree is None or tree.depth(tree.get_node(tree.root)) > MAX_DEPTH:
-      treeA = Tree(tree = individualA.tree)
-      treeB = Tree(tree = individualB.tree)
+      treeA = Tree(tree = individualA.tree, deep=True)
+      treeB = Tree(tree = individualB.tree, deep=True)
+      regenerate_ids(treeA)
+      regenerate_ids(treeB)
       removedNode = random.choice(treeA.all_nodes())
       addedNode = random.choice(treeB.all_nodes())
       
-      addedSubtree = Tree(tree = treeB.subtree(addedNode.identifier))
+      addedSubtree = Tree(tree = treeB.subtree(addedNode.identifier), deep=True)
 
       if removedNode.is_root():
         tree = addedSubtree
@@ -57,13 +59,13 @@ class IndividualFactory:
         treeA.paste(parent.identifier, addedSubtree)
         tree = treeA
 
-    return Individual(tree);
+    return Individual(tree)
 
 
   @staticmethod
   def mutate(individual):
     aTerminal = random.choice(list(terminals.keys() ) + numbers)
-    tree = Tree(tree = individual.tree)
+    tree = Tree(tree = individual.tree, deep=True)
     leaf = random.choice(tree.leaves(tree.root))
 
     if leaf.is_root():
@@ -75,4 +77,4 @@ class IndividualFactory:
       tree.remove_subtree(leaf.identifier)      
       tree.create_node(aTerminal, parent = parent.identifier)
           
-    return Individual(tree);
+    return Individual(tree)
