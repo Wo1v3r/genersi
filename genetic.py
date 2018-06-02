@@ -1,13 +1,23 @@
 import random
+from test import Test
 from algorithm import evaluateBoard
-from game import getNewBoard, resetBoard, getComputerMove, makeMove, getScoreOfPlayer, winner, gameOver
-from human import drawBoard
-from constants import *
+from game import (
+    getNewBoard,
+    resetBoard,
+    getComputerMove,
+    makeMove,
+    getScoreOfPlayer,
+    winner,
+    gameOver
+)
+from constants import PLAYER_X, PLAYER_O, GENERATIONS, POPULATION_SIZE
 from individual import IndividualFactory
 from population import Population
-
+from concurrent.futures import ThreadPoolExecutor
+from threading import RLock
 from tree_builder import TreeBuilder
 
+print_rlock = RLock()
 
 class Game:
  
@@ -47,15 +57,35 @@ class Game:
   winner = self.match(self.opponent, self.player)
   self.score('O', winner)
 
-population = Population()
-
-for _ in range(3):
-  for item in population.items:
+def fitness(item):
     otherItem = random.choice(population.items)
     game = Game(item, otherItem)
     game.play()
-    print('Item ' + item.id + ' Scored: ' + str(game.playerScore))
+    with print_rlock:
+      print('Item ' + item.id + ' Scored: ' + str(game.playerScore))
     item.fitness = game.playerScore
+
+population = Population(POPULATION_SIZE)
+
+for genaration in range(GENERATIONS):
+  print('Generation number: ' + str(genaration))
+  with ThreadPoolExecutor() as executor:
+    for item in population.items:
+      executor.submit(fitness, item=item)
   
   population.moveGeneration()
-  
+
+# Getting the best player item
+best_player = population.items[0]
+for item in population.items:
+  if item > best_player:
+    best_player = item
+
+
+print("Best player genotype:")
+best_player.tree.show()
+
+
+# Play versus human
+game_v_human = Test(best_player)
+game_v_human.play()

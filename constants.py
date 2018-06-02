@@ -16,3 +16,5 @@ PLAYER_SCORE = 'getScoreOfPlayer'
 EMPTY = 'empty'
 PLAYER_X = 'X'
 PLAYER_O = 'O'
+GENERATIONS = 32
+POPULATION_SIZE = 10

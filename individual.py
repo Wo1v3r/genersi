@@ -27,7 +27,8 @@ class IndividualFactory:
   def prototype():
     builder = TreeBuilder(MAX_DEPTH = MAX_DEPTH)
     tree = builder.halfAndHalf()
-    tree.show()
+    # uncomment in case we want to show the initail trees
+    # tree.show()
 
     return Individual(tree)
 

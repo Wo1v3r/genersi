@@ -1,4 +1,6 @@
-from game import *
+import random
+from game import getScoreOfBoard, isValidMove
+from constants import PLAYER_X, PLAYER_O
 
 def drawBoard(board):
     HLINE = '  +---+---+---+---+---+---+---+---+'
@@ -29,7 +31,7 @@ def enterPlayerTile():
     else:
         return [PLAYER_O, PLAYER_X]
 
-def showPoints(playerTile, computerTile):
+def showPoints(playerTile, computerTile, mainBoard):
     # Prints out the current score.
     scores = getScoreOfBoard(mainBoard)
     print('You have %s points. The computer has %s points.' % (scores[playerTile], scores[computerTile]))
@@ -74,64 +76,3 @@ def playAgain():
     # This function returns True if the player wants to play again, otherwise it returns False.
     print('Do you want to play again? (yes or no)')
     return raw_input().lower().startswith('y')
-
-
-# while True:
-#     # Reset the board and game.
-#     mainBoard = getNewBoard()
-#     resetBoard(mainBoard)
-#     playerTile, computerTile = enterPlayerTile()
-#     showHints = False
-#     turn = whoGoesFirst()
-#     print('The ' + turn + ' will go first.')
-
-#     while True:
-#         if turn == 'player':
-#             # Player's turn.
-#             if showHints:
-#                 validMovesBoard = getBoardWithValidMoves(mainBoard, playerTile)
-#                 drawBoard(validMovesBoard)
-#             else:
-#                 drawBoard(mainBoard)
-#             showPoints(playerTile, computerTile)
-#             move = getPlayerMove(mainBoard, playerTile)
-#             if move == 'quit':
-#                 print('Thanks for playing!')
-#                 sys.exit() # terminate the program
-#             elif move == 'hints':
-#                 showHints = not showHints
-#                 continue
-#             else:
-#                 makeMove(mainBoard, playerTile, move[0], move[1])
-
-#             if getValidMoves(mainBoard, computerTile) == []:
-#                 break
-#             else:
-#                 turn = 'computer'
-
-#         else:
-#             # Computer's turn.
-#             drawBoard(mainBoard)
-#             showPoints(playerTile, computerTile)
-#             raw_input('Press Enter to see the computer\'s move.')
-#             x, y = getComputerMove(mainBoard, computerTile)
-#             makeMove(mainBoard, computerTile, x, y)
-
-#             if getValidMoves(mainBoard, playerTile) == []:
-#                 break
-#             else:
-#                 turn = 'player'
-
-#     # Display the final score.
-#     drawBoard(mainBoard)
-#     scores = getScoreOfBoard(mainBoard)
-#     print('X scored %s points. O scored %s points.' % (scores[PLAYER_X], scores[PLAYER_O]))
-#     if scores[playerTile] > scores[computerTile]:
-#         print('You beat the computer by %s points! Congratulations!' % (scores[playerTile] - scores[computerTile]))
-#     elif scores[playerTile] < scores[computerTile]:
-#         print('You lost. The computer beat you by %s points.' % (scores[computerTile] - scores[playerTile]))
-#     else:
-#         print('The game was a tie!')
-
-#     if not playAgain():
-#         break

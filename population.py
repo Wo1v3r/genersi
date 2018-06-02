@@ -14,8 +14,6 @@ class Population:
 
     return item1 if item1 > item2 else item2
   
-
-  
   def reproduce(self):
     newBorn = self.select()
     newBorn = IndividualFactory.crossOver(newBorn, self.select(omit=newBorn)) if random.random() < 0.9 else newBorn
@@ -23,7 +21,6 @@ class Population:
     newBorn = IndividualFactory.mutate(newBorn) if random.random() < 0.01 else newBorn
 
     return newBorn
-
   
   def moveGeneration(self):
     self.nextGeneration = []
