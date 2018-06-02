@@ -19,13 +19,8 @@ class Population:
   def reproduce(self):
     newBorn = self.select()
     newBorn = IndividualFactory.crossOver(newBorn, self.select(omit=newBorn)) if random.random() < 0.9 else newBorn
-
-    print("Before mutation")
-    newBorn.tree.show()
-    newBorn = IndividualFactory.mutate(newBorn)
-    # if random.random() < 0.01 else newBorn
-    print("After mutation")
-    newBorn.tree.show()
+    
+    newBorn = IndividualFactory.mutate(newBorn) if random.random() < 0.01 else newBorn
 
     return newBorn
 

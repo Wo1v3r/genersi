@@ -25,7 +25,7 @@ class IndividualFactory:
   @staticmethod
   
   def prototype():
-    builder = TreeBuilder(MAX_DEPTH = MAX_DEPTH);
+    builder = TreeBuilder(MAX_DEPTH = MAX_DEPTH)
     tree = builder.halfAndHalf()
     tree.show()
 
@@ -47,10 +47,10 @@ class IndividualFactory:
       regenerate_ids(treeB)
       removedNode = random.choice(treeA.all_nodes())
       addedNode = random.choice(treeB.all_nodes())
-      
+
       addedSubtree = Tree(tree = treeB.subtree(addedNode.identifier), deep=True)
 
-      if removedNode.is_root():
+      if treeA.root == removedNode.identifier:
         tree = addedSubtree
 
       else:
@@ -65,16 +65,8 @@ class IndividualFactory:
   @staticmethod
   def mutate(individual):
     aTerminal = random.choice(list(terminals.keys() ) + numbers)
-    tree = Tree(tree = individual.tree, deep=True)
-    leaf = random.choice(tree.leaves(tree.root))
+    tree = individual.tree
+    leaf = random.choice(tree.leaves())
+    tree.get_node(leaf.identifier).tag = aTerminal
 
-    if leaf.is_root():
-      tree = Tree()
-      tree.create_node(aTerminal)
-    
-    else:
-      parent = tree.parent(leaf.identifier)
-      tree.remove_subtree(leaf.identifier)      
-      tree.create_node(aTerminal, parent = parent.identifier)
-          
     return Individual(tree)

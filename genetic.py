@@ -25,16 +25,10 @@ class Game:
     step = evaluateBoard(board, PLAYER_X, 2,  player1)
     if step is not None: 
       makeMove(board, PLAYER_X, step[0], step[1])
-      # print(PLAYER_X + ' Made move: ' + str(step[0]) + ' ' + str(step[1]))
-    # else:
-      # print(PLAYER_X + ' Has no steps')
 
     step = evaluateBoard(board, PLAYER_O, 2,  player2)
     if step is not None: 
       makeMove(board, PLAYER_O, step[0], step[1])
-      # print(PLAYER_O + ' Made move: ' + str(step[0]) + ' ' + str(step[1]))
-    # else:
-      # print(PLAYER_O + ' Has no steps')
 
   return winner(board)
 
