@@ -1,6 +1,6 @@
 import random
 from test import Test
-from algorithm import evaluateBoard
+from algorithm2 import evaluateBoard
 from game import (
     getNewBoard,
     resetBoard,
