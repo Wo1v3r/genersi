@@ -1,6 +1,9 @@
 import random
+import time
 from test import Test
-from algorithm2 import evaluateBoard
+from algorithm import evaluateBoard
+
+
 from game import (
     getNewBoard,
     resetBoard,
@@ -19,6 +22,17 @@ from tree_builder import TreeBuilder
 
 print_rlock = RLock()
 
+def startTimer():
+  startExperiment = time.time()
+  
+  def currentTime():
+
+    return str(time.time() - startExperiment)
+  
+  return currentTime
+
+currentTime = startTimer()
+
 class Game:
  
  def __init__(self , player, opponent):
@@ -33,10 +47,12 @@ class Game:
   
   while not gameOver(board):
     step = evaluateBoard(board, PLAYER_X, 2,  player1)
-    if step is not None: 
+
+    if step is not None:
       makeMove(board, PLAYER_X, step[0], step[1])
 
     step = evaluateBoard(board, PLAYER_O, 2,  player2)
+
     if step is not None: 
       makeMove(board, PLAYER_O, step[0], step[1])
 
@@ -48,7 +64,6 @@ class Game:
     self.playerScore += 1
   elif winner == player:
     self.playerScore += 2
-
  
  def play(self):
   winner = self.match(self.player, self.opponent)
@@ -57,21 +72,28 @@ class Game:
   winner = self.match(self.opponent, self.player)
   self.score('O', winner)
 
-def fitness(item):
+def fitness(item, num):
     otherItem = random.choice(population.items)
     game = Game(item, otherItem)
     game.play()
-    with print_rlock:
-      print('Item ' + item.id + ' Scored: ' + str(game.playerScore))
     item.fitness = game.playerScore
+    
+    # with print_rlock:
+    print(currentTime() + '\t| Item ' + str(num) + ' Scored: ' + str(game.playerScore))
+
 
 population = Population(POPULATION_SIZE)
 
 for genaration in range(GENERATIONS):
-  print('Generation number: ' + str(genaration))
-  with ThreadPoolExecutor() as executor:
-    for item in population.items:
-      executor.submit(fitness, item=item)
+  print(currentTime() + '\t| Generation number: ' + str(genaration))
+  
+  num = 0
+  
+  # with ThreadPoolExecutor() as executor:
+  for item in population.items:
+    num += 1
+    # executor.submit(fitness, item=item, num=num)
+    fitness(item,num)
   
   population.moveGeneration()
 
@@ -82,8 +104,12 @@ for item in population.items:
     best_player = item
 
 
+print(currentTime() + '\t| Experiment Over')
+
 print("Best player genotype:")
 best_player.tree.show()
+best_player.tree.save2file('champion.tree')
+print("Saved to ./champion.tree")
 
 
 # Play versus human

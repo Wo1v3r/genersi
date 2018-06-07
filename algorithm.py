@@ -10,67 +10,66 @@ def moveBoard(board,move,player):
   return board
 
 
-def min_max(board, player, depth, item):
+def alphaBeta(board, player, depth, item, maximizingPlayer, alpha, beta):
   moves = getValidMoves(board,player)
 
-  if len(moves)  == 0:
-    return None
+  if depth == 0 or len(moves) == 0:
+    return item.eval(board,player)
 
-  bestMove = moves[0]
-  bestMoveScore = -1000
+  v = None
+
+  if maximizingPlayer:
+    v = -float('inf')
+
+    for move in moves:
+      new_board = moveBoard(board, move, player)
+      v = max(v, alphaBeta(new_board,toggle_player[player], depth - 1, item, False, alpha, beta))
+      alpha = max(alpha, v)
+
+      if beta <= alpha:
+        break
+
+  else:
+    v = float('inf') 
+
+    for move in moves:
+      new_board = moveBoard(board, move, player)
+      v = min(v, alphaBeta(new_board,toggle_player[player], depth - 1, item , True, alpha, beta))
+      beta = min(beta, v)
+
+      if beta <= alpha:
+        break
+
+  return v
+
+
+def bestMove(board, player, depth, item):
+  moves = getValidMoves(board,player)
+  best_move = None
+  best_score = -float('inf')
+  
 
   for move in moves:
     new_board = moveBoard(board, move, player)
-    moveScore = min_val(new_board, depth, toggle_player[player], item)
-    bestMove = move if moveScore > bestMoveScore else bestMove
-    bestMoveScore = moveScore if moveScore > bestMoveScore else bestMoveScore
+    move_score = alphaBeta(new_board, toggle_player[player], depth,item , False, -float('inf'), float('inf'))
+    best_move = move if move_score > best_score else best_move
+    best_score = move_score if move_score > best_score else best_score
+    
 
-  return bestMove
+  return best_move
+
 
 def memoize(f):
   cache = {}
 
-  def memoized(board,depth, player, item):
+  def memoized(board, player, depth, item):
     
-    hashed = str((board,depth,player,item.id))
+    hashed = str((board, player, depth, item.id))
 
     if hashed not in cache:
-      cache[hashed] = f(board,depth,player,item)
+      cache[hashed] = f(board, player, depth, item)
     return cache[hashed]
 
   return memoized
 
-evaluateBoard = memoize(min_max)
-
-def min_val(board, depth, player, item):
-  depth = depth - 1
-  moves = getValidMoves(board,player)
-
-  move_scores = []
-
-  #this is incorrect
-  if depth < 0  or len(moves) == 0:
-    return item.eval(board,player)
-  
-  for move in moves:
-    new_board = moveBoard(board, move, player)
-    move_scores.append(max_val(new_board, depth, toggle_player[player], item))
-
-  return min(move_scores)
-
-def max_val(board, depth, player, item):
-  depth = depth - 1
-  
-  moves = getValidMoves(board,player)
-  move_scores = []
-  
-
-  #this is incorrect
-  if depth < 0 or len(moves) == 0:
-    return item.eval(board,player)
-
-  for move in moves:
-    board = moveBoard(board, move, player)
-    move_scores.append(min_val(board, depth,toggle_player[player],item))
-
-  return max(move_scores)
+evaluateBoard = memoize(bestMove)
