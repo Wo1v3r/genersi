@@ -7,20 +7,6 @@ def invoke(board, player ,node ,values):
   return evaluator(resolvedValues)
 
 
-def memoize(f):
-  cache = {}
-
-  def memoized(board,player):
-    hashed = str((board,player))
-
-    if hashed not in cache:
-      cache[hashed] = f(board,player)
-
-    return cache[hashed]
-
-  return memoized
-
-
 def parse_tree(id, tree):
   node = tree.get_node(id)
 
@@ -37,4 +23,4 @@ def parse_tree(id, tree):
 
 
 def evaluate_tree(tree):
-  return memoize(parse_tree(tree.root, tree))
+  return parse_tree(tree.root, tree)

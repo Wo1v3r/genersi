@@ -77,27 +77,27 @@ def fitness(item, num):
     game = Game(item, otherItem)
     game.play()
     item.fitness = game.playerScore
-    
-    # with print_rlock:
-    print(currentTime() + '\t| Item ' + str(num) + ' Scored: ' + str(game.playerScore))
+    with print_rlock:
+      print(currentTime() + '\t| Item ' + str(num) + ' Scored: ' + str(item.fitness))
 
 
 population = Population(POPULATION_SIZE)
+try:
+  for genaration in range(GENERATIONS):
+    print(currentTime() + '\t| Generation number: ' + str(genaration))
+    
+    num = 0
+    with ThreadPoolExecutor() as executor:
+      for item in population.items:
+        num += 1
+        executor.submit(fitness, item=item, num=num)
 
-for genaration in range(GENERATIONS):
-  print(currentTime() + '\t| Generation number: ' + str(genaration))
-  
-  num = 0
-  
-  # with ThreadPoolExecutor() as executor:
-  for item in population.items:
-    num += 1
-    # executor.submit(fitness, item=item, num=num)
-    fitness(item,num)
-  
-  population.moveGeneration()
+    population.moveGeneration()
 
-# Getting the best player item
+except KeyboardInterrupt:
+  pass
+
+
 best_player = population.items[0]
 for item in population.items:
   if item > best_player:
