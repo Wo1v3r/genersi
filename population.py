@@ -1,6 +1,8 @@
 import random
 from individual import IndividualFactory
 
+from variables import CROSSOVER_RATE, MUTATION_RATE
+
 
 class Population:
   def __init__(self, POP_SIZE = 2):
@@ -16,9 +18,9 @@ class Population:
   
   def reproduce(self):
     newBorn = self.select()
-    newBorn = IndividualFactory.crossOver(newBorn, self.select(omit=newBorn)) if random.random() < 0.9 else newBorn
+    newBorn = IndividualFactory.crossOver(newBorn, self.select(omit=newBorn)) if random.random() < CROSSOVER_RATE else newBorn
     
-    newBorn = IndividualFactory.mutate(newBorn) if random.random() < 0.06 else newBorn
+    newBorn = IndividualFactory.mutate(newBorn) if random.random() < MUTATION_RATE else newBorn
 
     return newBorn
   

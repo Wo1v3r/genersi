@@ -2,6 +2,7 @@ from interpreter import evaluate_tree
 from tree_builder import TreeBuilder, regenerate_ids
 from settings import terminals, numbers
 from treelib import Tree
+from variables import TREE_MAX_DEPTH
 import uuid
 import random
 
@@ -16,9 +17,6 @@ class Individual:
 
   def __gt__(self,other):
     return self.fitness > other.fitness
-
-
-MAX_DEPTH=16
 
 
 class IndividualFactory:
@@ -41,7 +39,7 @@ class IndividualFactory:
   def crossOver(individualA, individualB):
     tree = None
 
-    while tree is None or tree.depth(tree.get_node(tree.root)) > MAX_DEPTH:
+    while tree is None or tree.depth(tree.get_node(tree.root)) > TREE_MAX_DEPTH:
       treeA = Tree(tree = individualA.tree, deep=True)
       treeB = Tree(tree = individualB.tree, deep=True)
       regenerate_ids(treeA)

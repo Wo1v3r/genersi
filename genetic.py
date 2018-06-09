@@ -12,7 +12,9 @@ from game import (
     gameOver
 )
 
-from constants import PLAYER_X, PLAYER_O, GENERATIONS, POPULATION_SIZE, MAX_DEPTH, IS_TOURNAMENT
+from constants import PLAYER_X, PLAYER_O
+from variables import MAX_DEPTH, IS_TOURNAMENT, GENERATIONS, POPULATION_SIZE
+
 from individual import IndividualFactory
 from population import Population
 from tree_builder import TreeBuilder

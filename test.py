@@ -18,8 +18,8 @@ from game import (
     getComputerMove
 )
 from algorithm import evaluateBoard
-from constants import PLAYER_X, PLAYER_O, GAME_COUNT
-
+from constants import PLAYER_X, PLAYER_O
+from variables import GAME_COUNT
 class Test():
     def __init__(self, item):
         self.item = item
