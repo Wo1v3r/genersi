@@ -7,6 +7,41 @@ class TreeBuilder:
   def __init__(self, MAX_DEPTH = 5):
     self.MAX_DEPTH = MAX_DEPTH
 
+
+  @staticmethod
+  def buildTree(tree, parent, children):
+
+    for child in children:
+      if isinstance(child, dict):
+        tag = list(child.keys())[0]
+        children = child[tag]['children']
+
+      else:
+        tag = child
+        children = []
+
+      childNode = tree.create_node(tag=tag, parent = parent)
+      TreeBuilder.buildTree(tree, parent = childNode.identifier, children = children)
+
+  @staticmethod
+  def fromJson(json):
+    tree = Tree()
+
+    if isinstance(json, dict):
+        tag = list(json.keys())[0]
+        children = json[tag]['children']
+
+    else:
+        tag = json
+        children = []
+    
+    tree.create_node(tag=tag)
+    TreeBuilder.buildTree(tree, parent=tree.root, children=children)
+
+    return tree
+
+
+
   def grow(self, tree, depth, parent = None, full = False):
     aTerminal = random.choice(list(terminals.keys() ) + numbers)
     aFunction = random.choice(list(functions.keys()))

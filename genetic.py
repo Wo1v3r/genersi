@@ -1,8 +1,6 @@
 
 import sys, traceback, time, random
-from test import Test
 from algorithm import evaluateBoard
-
 
 from game import (
     getNewBoard,
@@ -106,9 +104,10 @@ print(currentTime() + '\t| Experiment Over')
 print("Best player genotype:")
 best_player.tree.show()
 best_player.tree.save2file('champion.tree')
+
+treeJson = best_player.tree.to_json()
+
+with open('champion.tree.json', 'w') as outfile:
+  outfile.write(treeJson)
+
 print("Saved to ./champion.tree")
-
-
-# Play versus human
-game_v_human = Test(best_player)
-game_v_human.play()
