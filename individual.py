@@ -18,16 +18,16 @@ class Individual:
     return self.fitness > other.fitness
 
 
-MAX_DEPTH=5
+MAX_DEPTH=16
 
 
 class IndividualFactory:
   @staticmethod
   
   def prototype():
-    builder = TreeBuilder(MAX_DEPTH = MAX_DEPTH)
+    builder = TreeBuilder()
     tree = builder.halfAndHalf()
-    # uncomment in case we want to show the initail trees
+    # uncomment in case we want to show the initial trees
     # tree.show()
 
     return Individual(tree)

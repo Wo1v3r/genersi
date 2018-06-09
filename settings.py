@@ -5,7 +5,6 @@ functions = {
   IF:  lambda values :  values[1] if values[0] else values[2],
   EQUALS:  lambda values : 1 if values[0] == values[1] else 0,
   GREATER:  lambda values : 1 if values[0] > values[1] else 0,
-  # LOWER:  lambda values : 1 if values[0] < values[1] else 0,
   MINUS: lambda values : values[0] - values[1],
   PLUS: lambda values: values[0] + values[1],
   MUL: lambda values: values[0] * values[1],

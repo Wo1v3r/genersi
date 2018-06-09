@@ -101,13 +101,8 @@ for item in population.items:
     best_player = item
 
 
-
 print(currentTime() + '\t| Experiment Over')
 
-
-
-'''
-# When it works
 print("Best player genotype:")
 best_player.tree.show()
 best_player.tree.save2file('champion.tree')
@@ -117,4 +112,3 @@ print("Saved to ./champion.tree")
 # Play versus human
 game_v_human = Test(best_player)
 game_v_human.play()
-'''

@@ -4,7 +4,7 @@ import uuid
 import random
 
 class TreeBuilder:
-  def __init__(self, MAX_DEPTH = 10):
+  def __init__(self, MAX_DEPTH = 5):
     self.MAX_DEPTH = MAX_DEPTH
 
   def grow(self, tree, depth, parent = None, full = False):
