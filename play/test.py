@@ -120,3 +120,5 @@ class Test():
           
         if isComputer:
           print('Champion won %d out of %d games' % (game_wins, game_count))
+        
+        return (game_wins, game_count)

@@ -2,7 +2,7 @@ import datetime
 import os
 from shutil import copyfile
 
-def report(item):
+def report(item, experimentTime, generation, results):
 
   experimentDate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
   experimentDir = './experiments/' + experimentDate
@@ -11,19 +11,33 @@ def report(item):
     os.makedirs(experimentDir)
   
   item.tree.save2file(experimentDir + '/item.tree')
-  print("Saved to %s/item.tree" % experimentDir)
+  print("Saved item tree to %s/item.tree" % experimentDir)
 
   itemJson = item.tree.to_json()
 
-  with open(experimentDir + '/champion.tree.json', 'w') as outfile:
+  with open(experimentDir + '/item.tree.json', 'w') as outfile:
     outfile.write(itemJson)
 
-  print("Saved to %s/champion.tree.json" % experimentDir)
+  print("Saved to %s/item.tree.json" % experimentDir)
 
-  copyfile('settings/variables.py', experimentDir + '/settings.txt')
 
-  print("Saved experiment settings to %s/settings.txt" % experimentDir)
+  copyfile(experimentDir + '/item.tree.json', './champion.tree.json')
+  print("Copied champion.tree.json to root dir.")
+
   
+  copyfile('settings/variables.py', experimentDir + '/settings.txt')
+  print("Copied experiment settings to %s/settings.txt" % experimentDir)
 
-  print(experimentDate)
+  
+  
+  with open(experimentDir + '/genersi.log', 'w') as outfile:
+    runLog = {
+      "Experiment Time": experimentTime,
+      "Last Generation": generation,
+      "Fitness Graph": "Should be here",
+      "Contest Results:": str(results[0]) + "/" + str(results[1])
+    }
+    outfile.write(str(runLog))
+  
+  print("Saved run log to %s/genersi.log" % experimentDir)
   

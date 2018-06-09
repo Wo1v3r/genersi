@@ -10,14 +10,14 @@ def drawBoard(board):
     print('    1   2   3   4   5   6   7   8')
     print(HLINE)
     for y in range(8):
-        print(VLINE)        
+        print(VLINE)
         # print (y+1), #python2
         print (y+1, end=' ') #python3
         
         for x in range(8):
           # print ('| %s' % (board[x][y])), #python2
           print ('| %s' % (board[x][y]), end=' ') #python3
-            
+
         print('|')
         print(VLINE)
         print(HLINE)
@@ -89,4 +89,3 @@ def playAgain():
     print('Do you want to play again? (yes or no)')
     # return raw_input().lower().startswith('y') #python2    
     return input().lower().startswith('y') #python3
-    
