@@ -144,7 +144,8 @@ def getScoreOfPlayer(board, player):
 
 
 def gameOver(board):
-    return getScoreOfBoard(board)[' '] == 0
+    possibleMoves = getValidMoves(board, PLAYER_O) + getValidMoves(board, PLAYER_X)
+    return len(possibleMoves) == 0
 
 def winner(board):
     playerXScore = getScoreOfPlayer(board, PLAYER_X)

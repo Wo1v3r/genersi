@@ -1,5 +1,5 @@
-import random
-import time
+
+import sys, traceback, time, random
 from test import Test
 from algorithm import evaluateBoard
 
@@ -13,14 +13,11 @@ from game import (
     winner,
     gameOver
 )
-from constants import PLAYER_X, PLAYER_O, GENERATIONS, POPULATION_SIZE
+
+from constants import PLAYER_X, PLAYER_O, GENERATIONS, POPULATION_SIZE, MAX_DEPTH
 from individual import IndividualFactory
 from population import Population
-from concurrent.futures import ThreadPoolExecutor
-from threading import RLock
 from tree_builder import TreeBuilder
-
-print_rlock = RLock()
 
 def startTimer():
   startExperiment = time.time()
@@ -46,12 +43,12 @@ class Game:
   resetBoard(board)
   
   while not gameOver(board):
-    step = evaluateBoard(board, PLAYER_X, 2,  player1)
+    step = evaluateBoard(board, PLAYER_X, MAX_DEPTH,  player1)
 
     if step is not None:
       makeMove(board, PLAYER_X, step[0], step[1])
 
-    step = evaluateBoard(board, PLAYER_O, 2,  player2)
+    step = evaluateBoard(board, PLAYER_O, MAX_DEPTH,  player2)
 
     if step is not None: 
       makeMove(board, PLAYER_O, step[0], step[1])
@@ -77,24 +74,24 @@ def fitness(item, num):
     game = Game(item, otherItem)
     game.play()
     item.fitness = game.playerScore
-    with print_rlock:
-      print(currentTime() + '\t| Item ' + str(num) + ' Scored: ' + str(item.fitness))
+    print(currentTime() + '\t| Item ' + str(num) + ' Scored: ' + str(item.fitness))
 
 
 population = Population(POPULATION_SIZE)
+
 try:
   for genaration in range(GENERATIONS):
     print(currentTime() + '\t| Generation number: ' + str(genaration))
-    
     num = 0
-    with ThreadPoolExecutor() as executor:
-      for item in population.items:
-        num += 1
-        executor.submit(fitness, item=item, num=num)
+
+    for item in population.items:
+      num += 1
+      fitness(item, num)
 
     population.moveGeneration()
 
 except KeyboardInterrupt:
+  traceback.print_exc(file=sys.stdout)
   pass
 
 
@@ -104,8 +101,13 @@ for item in population.items:
     best_player = item
 
 
+
 print(currentTime() + '\t| Experiment Over')
 
+
+
+'''
+# When it works
 print("Best player genotype:")
 best_player.tree.show()
 best_player.tree.save2file('champion.tree')
@@ -115,3 +117,4 @@ print("Saved to ./champion.tree")
 # Play versus human
 game_v_human = Test(best_player)
 game_v_human.play()
+'''
