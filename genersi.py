@@ -1,11 +1,11 @@
 import sys, traceback
-
 from settings.constants import PLAYER_X, PLAYER_O
 from settings.variables import MAX_DEPTH, IS_TOURNAMENT, GENERATIONS
 from evolution.individual import IndividualFactory
 from evolution.population import Population
 from evolution.fitness import fitness
 from utils.timer import startTimer
+from utils.reporter import report
 
 currentTime = startTimer()
 population = Population()
@@ -31,15 +31,6 @@ best_player = population.best()
 
 print(currentTime() + '\t| Experiment Over')
 
-print("Best player genotype:")
-best_player.tree.show()
-best_player.tree.save2file('champion.tree')
 
-print("Saved to ./champion.tree")
+report(item=best_player)
 
-treeJson = best_player.tree.to_json()
-
-with open('champion.tree.json', 'w') as outfile:
-  outfile.write(treeJson)
-
-print("Saved to ./champion.tree.json")
