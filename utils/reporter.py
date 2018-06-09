@@ -1,8 +1,7 @@
-import datetime
-import os
+import datetime, os, json
 from shutil import copyfile
 
-def report(item, experimentTime, generation, results):
+def report(item, experimentTime, generation, generationFitness,  results):
 
   experimentDate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
   experimentDir = './experiments/' + experimentDate
@@ -30,14 +29,15 @@ def report(item, experimentTime, generation, results):
 
   
   
-  with open(experimentDir + '/genersi.log', 'w') as outfile:
+  with open(experimentDir + '/genersi.log.json', 'w') as outfile:
     runLog = {
       "Experiment Time": experimentTime,
       "Last Generation": generation,
-      "Fitness Graph": "Should be here",
-      "Contest Results:": str(results[0]) + "/" + str(results[1])
+      "Fitness": generationFitness,
+      "Contest Results:": str(results[0]) + "/" + str(results[1]),
     }
-    outfile.write(str(runLog))
+
+    json.dump(runLog, outfile)
   
-  print("Saved run log to %s/genersi.log" % experimentDir)
+  print("Saved run log to %s/genersi.log.json" % experimentDir)
   

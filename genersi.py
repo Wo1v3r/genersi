@@ -11,9 +11,12 @@ from play.champion import contestChampion
 currentTime = startTimer()
 population = Population()
 currentGeneration = 0
+generationFitness = {}
 
 try:
   for generation in range(GENERATIONS):
+    all_fitness = []
+
     currentGeneration = generation
     print(currentTime() + '\t| Generation number: ' + str(generation))
     num = 0
@@ -22,7 +25,9 @@ try:
       num += 1
       fitness(item = item, items=population.items,  num=num)
       print(currentTime() + '\t| Item ' + str(num) + ' With Fitness: ' + str(item.fitness))
+      all_fitness.append(item.fitness)
 
+    generationFitness[str(generation + 1)] = all_fitness
     population.moveGeneration()
 
 except KeyboardInterrupt:
@@ -38,4 +43,4 @@ print('Contesting champion:')
 
 results = contestChampion(isComputer=True, item = item)
 
-report(item=best_player,experimentTime=experimentTime, generation = currentGeneration, results = results )
+report(item=best_player,experimentTime=experimentTime, generation = currentGeneration, results = results ,generationFitness = generationFitness)
