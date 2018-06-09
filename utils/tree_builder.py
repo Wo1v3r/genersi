@@ -1,15 +1,11 @@
-from settings import functions, terminals, arguments, numbers
+from settings.nodes import functions, terminals, arguments, numbers
 from treelib import Node, Tree
-from variables import TREE_INITIAL_MAX_DEPTH
+from settings.variables import TREE_INITIAL_MAX_DEPTH
 
 import uuid
 import random
 
 class TreeBuilder:
-  def __init__(self, TREE_INITIAL_MAX_DEPTH = TREE_INITIAL_MAX_DEPTH):
-    self.TREE_INITIAL_MAX_DEPTH = TREE_INITIAL_MAX_DEPTH
-
-
   @staticmethod
   def buildTree(tree, parent, children):
 
@@ -49,7 +45,7 @@ class TreeBuilder:
     aFunction = random.choice(list(functions.keys()))
     isATerminal = not full and random.choice([True, False])
 
-    if depth == self.TREE_INITIAL_MAX_DEPTH or isATerminal:
+    if depth == TREE_INITIAL_MAX_DEPTH or isATerminal:
       tree.create_node(aTerminal, parent=parent)
 
     else:

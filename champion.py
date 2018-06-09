@@ -1,8 +1,9 @@
 
 import sys , json
-from test import Test
-from tree_builder import TreeBuilder
-from individual import IndividualFactory
+
+from play.test import Test
+from utils.tree_builder import TreeBuilder
+from evolution.individual import IndividualFactory
 
 with open('champion.tree.json', 'r') as readFile:
     best_player_json = json.load(readFile)

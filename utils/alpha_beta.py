@@ -1,6 +1,7 @@
-from game import *
-from constants import *
 import copy
+
+from game.controller import *
+from settings.constants import *
 
 toggle_player = { PLAYER_X : PLAYER_O , PLAYER_O: PLAYER_X}
 

@@ -1,5 +1,5 @@
-from constants import *
-from game import getScoreOfPlayer, getScoreOfBoard
+from settings.constants import *
+from game.controller import getScoreOfPlayer, getScoreOfBoard
 
 functions = {
   IF:  lambda values :  values[1] if values[0] else values[2],

@@ -1,5 +1,4 @@
-from settings import functions, terminals
-
+from settings.nodes import functions, terminals
 
 def invoke(board, player ,node ,values):
   evaluator = functions[node.tag]

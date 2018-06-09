@@ -1,6 +1,6 @@
 import sys
 import random
-from human import (
+from play.human import (
     enterPlayerTile,
     rollPlayerTile,
     whoGoesFirst,
@@ -9,7 +9,7 @@ from human import (
     getScoreOfBoard,
     getPlayerMove
 )
-from game import (
+from game.controller import (
     getNewBoard,
     resetBoard,
     getBoardWithValidMoves,
@@ -17,9 +17,9 @@ from game import (
     getValidMoves,
     getComputerMove
 )
-from algorithm import evaluateBoard
-from constants import PLAYER_X, PLAYER_O
-from variables import GAME_COUNT
+from utils.alpha_beta import evaluateBoard
+from settings.constants import PLAYER_X, PLAYER_O
+from settings.variables import GAME_COUNT
 class Test():
     def __init__(self, item):
         self.item = item

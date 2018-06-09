@@ -1,6 +1,6 @@
 import random
-from game import getScoreOfBoard, isValidMove
-from constants import PLAYER_X, PLAYER_O
+from game.controller import getScoreOfBoard, isValidMove
+from settings.constants import PLAYER_X, PLAYER_O
 
 def drawBoard(board):
     HLINE = '  +---+---+---+---+---+---+---+---+'

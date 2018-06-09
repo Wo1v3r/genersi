@@ -1,8 +1,8 @@
-from interpreter import evaluate_tree
-from tree_builder import TreeBuilder, regenerate_ids
-from settings import terminals, numbers
+from evolution.interpreter import evaluate_tree
+from utils.tree_builder import TreeBuilder, regenerate_ids
 from treelib import Tree
-from variables import TREE_MAX_DEPTH
+from settings.nodes import terminals, numbers
+from settings.variables import TREE_MAX_DEPTH
 import uuid
 import random
 
@@ -18,6 +18,11 @@ class Individual:
   def __gt__(self,other):
     return self.fitness > other.fitness
 
+  def __lt__(self,other):
+    return self.fitness < other.fitness
+
+  def __eq__(self,other):
+    return self.fitness == other.fitness
 
 class IndividualFactory:
   @staticmethod
@@ -25,9 +30,6 @@ class IndividualFactory:
   def prototype():
     builder = TreeBuilder()
     tree = builder.halfAndHalf()
-    # uncomment in case we want to show the initial trees
-    # tree.show()
-
     return Individual(tree)
 
   @staticmethod

@@ -1,6 +1,6 @@
 import random
 import sys
-from constants import PLAYER_X, PLAYER_O
+from settings.constants import PLAYER_X, PLAYER_O
 
 def resetBoard(board):
     for x in range(8):
