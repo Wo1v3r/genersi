@@ -1,5 +1,5 @@
 
-import sys, traceback, time, random
+import sys, traceback, time, random, copy
 from algorithm import evaluateBoard
 
 from game import (
@@ -12,7 +12,7 @@ from game import (
     gameOver
 )
 
-from constants import PLAYER_X, PLAYER_O, GENERATIONS, POPULATION_SIZE, MAX_DEPTH
+from constants import PLAYER_X, PLAYER_O, GENERATIONS, POPULATION_SIZE, MAX_DEPTH, IS_TOURNAMENT
 from individual import IndividualFactory
 from population import Population
 from tree_builder import TreeBuilder
@@ -68,11 +68,17 @@ class Game:
   self.score('O', winner)
 
 def fitness(item, num):
-    otherItem = random.choice(population.items)
-    game = Game(item, otherItem)
-    game.play()
-    item.fitness = game.playerScore
-    print(currentTime() + '\t| Item ' + str(num) + ' Scored: ' + str(item.fitness))
+    otherItems = [otherItem for otherItem in population.items if otherItem.id != item.id]
+    items = otherItems if IS_TOURNAMENT else [random.choice(population.items)]
+    
+    item.fitness = 0
+    for otherItem in items:
+      game = Game(item, otherItem)
+      game.play()
+      
+      item.fitness += game.playerScore
+
+    print(currentTime() + '\t| Item ' + str(num) + ' With Fitness: ' + str(item.fitness))
 
 
 population = Population(POPULATION_SIZE)
