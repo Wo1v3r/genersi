@@ -29,4 +29,4 @@ terminals = {
   PLAYER_SCORE: lambda board, player : getScoreOfPlayer(board,player),
 }
 
-numbers = [ str(x) for x in range(64)]
+numbers = [ str(x) for x in range(8)]

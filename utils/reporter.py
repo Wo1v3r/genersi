@@ -39,14 +39,3 @@ def closeReport(item, experimentTime, generation, generationFitness,  results, e
     json.dump(runLog, outfile)
   
   print("Saved run log to %s/genersi.log.json" % experimentDir)
-
-
-
-
-
-
-  
-
-  
-  
-  
