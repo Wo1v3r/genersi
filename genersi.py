@@ -5,11 +5,12 @@ from evolution.individual import IndividualFactory
 from evolution.population import Population
 from evolution.fitness import fitness
 from utils.timer import startTimer
-from utils.reporter import report
+from utils.reporter import openReport, closeReport
 from play.champion import contestChampion
 
 currentTime = startTimer()
 population = Population()
+experimentDir = openReport()
 currentGeneration = 0
 generationFitness = {}
 
@@ -48,4 +49,11 @@ print('Contesting champion:')
 
 results = contestChampion(isComputer=True, item = item)
 
-report(item=best_player,experimentTime=experimentTime, generation = currentGeneration, results = results ,generationFitness = generationFitness)
+closeReport(
+  item=best_player,
+  experimentTime=experimentTime,
+  generation = currentGeneration,
+  results = results,
+  generationFitness = generationFitness,
+  experimentDir = experimentDir
+)
