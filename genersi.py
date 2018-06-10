@@ -23,7 +23,12 @@ try:
 
     for item in population.items:
       num += 1
-      fitness(item = item, items=population.items,  num=num)
+      
+      if GENERATIONS == generation + 1:
+        fitness(item = item, items=population.items,  num=num, isTournament=True)
+      else:
+        fitness(item = item, items=population.items,  num=num)
+        
       print(currentTime() + '\t| Item ' + str(num) + ' With Fitness: ' + str(item.fitness))
       all_fitness.append(item.fitness)
 

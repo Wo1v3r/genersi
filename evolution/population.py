@@ -27,7 +27,7 @@ class Population:
     newBorn = self.select()
     
     newBorn = IndividualFactory.crossOver(newBorn, self.select(omit=newBorn)) if random.random() < CROSSOVER_RATE else newBorn
-    
+
     newBorn = IndividualFactory.mutate(newBorn) if random.random() < MUTATION_RATE else newBorn
 
     return newBorn
