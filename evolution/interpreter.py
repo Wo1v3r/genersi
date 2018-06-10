@@ -9,10 +9,10 @@ def invoke(board, player ,node ,values):
 def parse_tree(id, tree):
   node = tree.get_node(id)
 
-  if node.is_leaf() and node.tag in terminals:
+  if node.tag in terminals:
     return terminals[node.tag]
 
-  if not node.is_leaf() and node.tag in functions:
+  if node.tag in functions:
     children = tree.children(id)
     values = [parse_tree(child.identifier,tree) for child in children]
 

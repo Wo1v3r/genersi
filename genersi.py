@@ -35,7 +35,7 @@ try:
     generationFitness[str(generation + 1)] = all_fitness
     population.moveGeneration()
 
-except KeyboardInterrupt:
+except Exception:
   traceback.print_exc(file=sys.stdout)
   pass
 
