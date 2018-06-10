@@ -2,7 +2,7 @@ import datetime, os, json
 from shutil import copyfile
 
 def openReport():
-  experimentDate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+  experimentDate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
   experimentDir = './experiments/' + experimentDate
 
   if not os.path.exists(experimentDir):
