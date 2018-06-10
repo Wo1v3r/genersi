@@ -33,7 +33,7 @@ def closeReport(item, experimentTime, generation, generationFitness,  results, e
       "Experiment Time": experimentTime,
       "Last Generation": generation,
       "Fitness": generationFitness,
-      "Contest Results:": str(results[0]) + "/" + str(results[1]),
+      "Results": results
     }
 
     json.dump(runLog, outfile)

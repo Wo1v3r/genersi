@@ -47,7 +47,11 @@ print('%s\t| Experiment Over' % experimentTime)
 
 print('Contesting champion:')
 
-results = contestChampion(isComputer=True, item = item)
+results = {
+  'Noob': contestChampion(isComputer=True, item = item, difficulty= 'NOOB'),
+  'Adept': contestChampion(isComputer=True, item = item, difficulty= 'NOOB'),
+  'Master': contestChampion(isComputer=True, item = item, difficulty= 'NOOB')
+}
 
 closeReport(
   item=best_player,
