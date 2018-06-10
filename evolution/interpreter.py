@@ -9,9 +9,6 @@ def invoke(board, player ,tag, values):
 def parse_tree(id, tree):
   node = tree.get_node(id)
 
-  if node.tag in terminals:
-    return terminals[node.tag]
-
   if node.tag in functions:
     children = tree.children(id)
     values = [parse_tree(child.identifier,tree) for child in children]
@@ -24,7 +21,16 @@ def parse_tree(id, tree):
 
   def toInt(board,player):
     tag = node.tag
-    return int(tag)
+    
+    value = 0
+
+    try:
+      value = int(tag)
+    
+    except Exception:
+      value = terminals[tag]
+
+    return value
   
   return toInt
 
