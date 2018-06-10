@@ -1,7 +1,7 @@
 from settings.nodes import functions, terminals
 
 def invoke(board, player ,tag, values):
-  evaluator = functions[node.tag]
+  evaluator = functions[tag]
   resolvedValues = [ _(board,player) for _ in values]
   return evaluator(resolvedValues)
 
