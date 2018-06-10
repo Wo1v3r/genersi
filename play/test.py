@@ -98,6 +98,8 @@ class Test():
           
           if not isComputer:
             print('X scored %s points. O scored %s points.' % (scores[PLAYER_X], scores[PLAYER_O]))
+          else:
+            print('Game %d / %d :' % (_, game_count))            
           
           if scores[playerTile] > scores[computerTile]:
             if isComputer:
