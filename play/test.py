@@ -24,7 +24,7 @@ class Test():
     def __init__(self, item):
         self.item = item
 
-    def play(self, isComputer = False):
+    def play(self, isComputer = False, difficulty = 'Master'):
 
         game_count = GAME_COUNT if isComputer else 1
         game_wins = 0
@@ -48,7 +48,7 @@ class Test():
               if turn == 'player':
                   
                   if isComputer:
-                    move = getComputerMove(mainBoard, playerTile)  
+                    move = getComputerMove(mainBoard, playerTile, difficulty = difficulty)  
                   
                   else : 
                     if showHints:
@@ -99,7 +99,7 @@ class Test():
           if not isComputer:
             print('X scored %s points. O scored %s points.' % (scores[PLAYER_X], scores[PLAYER_O]))
           else:
-            print('Game %d / %d :' % (_, game_count))            
+            print('Game %d / %d :' % (_ + 1, game_count))            
           
           if scores[playerTile] > scores[computerTile]:
             if isComputer:

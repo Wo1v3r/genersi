@@ -13,7 +13,7 @@ def loadChampion():
 
   return champion_item
 
-def contestChampion(isComputer = False, item = loadChampion()):
+def contestChampion(isComputer = False, item = loadChampion(), difficulty = 'Master'):
   game_v_human = Test(item)
-  return game_v_human.play(isComputer = isComputer)
+  return game_v_human.play(isComputer = isComputer, difficulty = difficulty)
 
