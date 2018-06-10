@@ -28,7 +28,7 @@ def parse_tree(id, tree):
       value = int(tag)
     
     except Exception:
-      value = terminals[tag]
+      value = terminals[tag](board,player)
 
     return value
   
