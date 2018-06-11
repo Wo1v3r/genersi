@@ -1,0 +1,101 @@
+minus
+├── equals
+│   ├── div
+│   │   ├── empty
+│   │   └── greater
+│   │       ├── equals
+│   │       │   ├── 4
+│   │       │   └── getScoreOfPlayerX
+│   │       └── greater
+│   │           ├── mul
+│   │           │   ├── 7
+│   │           │   └── X
+│   │           └── plus
+│   │               ├── div
+│   │               │   ├── minus
+│   │               │   │   ├── 3
+│   │               │   │   └── O
+│   │               │   └── plus
+│   │               │       ├── 7
+│   │               │       └── equals
+│   │               │           ├── 2
+│   │               │           └── O
+│   │               └── div
+│   │                   ├── minus
+│   │                   │   ├── 4
+│   │                   │   └── player
+│   │                   └── mul
+│   │                       ├── 7
+│   │                       └── getScoreOfPlayerO
+│   └── greater
+│       ├── 2
+│       └── equals
+│           ├── div
+│           │   ├── 2
+│           │   └── getScoreOfPlayer
+│           └── minus
+│               ├── 1
+│               └── O
+└── minus
+    ├── mul
+    │   ├── div
+    │   │   ├── if
+    │   │   │   ├── O
+    │   │   │   ├── O
+    │   │   │   └── getScoreOfPlayerO
+    │   │   └── mul
+    │   │       ├── 4
+    │   │       └── player
+    │   └── equals
+    │       ├── div
+    │       │   ├── 7
+    │       │   └── getScoreOfPlayerX
+    │       └── plus
+    │           ├── equals
+    │           │   ├── div
+    │           │   │   ├── getScoreOfPlayer
+    │           │   │   └── getScoreOfPlayer
+    │           │   └── equals
+    │           │       ├── 1
+    │           │       └── O
+    │           └── player
+    └── plus
+        ├── div
+        │   ├── mul
+        │   │   ├── 6
+        │   │   └── 6
+        │   └── mul
+        │       ├── 1
+        │       └── equals
+        │           ├── div
+        │           │   ├── equals
+        │           │   │   ├── div
+        │           │   │   │   ├── getScoreOfPlayer
+        │           │   │   │   └── if
+        │           │   │   │       ├── 6
+        │           │   │   │       ├── X
+        │           │   │   │       └── getScoreOfPlayerO
+        │           │   │   └── plus
+        │           │   │       ├── 4
+        │           │   │       └── X
+        │           │   └── greater
+        │           │       ├── greater
+        │           │       │   ├── getScoreOfPlayer
+        │           │       │   └── getScoreOfPlayerX
+        │           │       └── mul
+        │           │           ├── getScoreOfPlayer
+        │           │           └── getScoreOfPlayerO
+        │           └── greater
+        │               ├── 2
+        │               └── equals
+        │                   ├── equals
+        │                   │   ├── 1
+        │                   │   └── O
+        │                   └── getScoreOfPlayer
+        └── minus
+            ├── div
+            │   ├── X
+            │   └── player
+            └── greater
+                ├── O
+                └── getScoreOfPlayerX
