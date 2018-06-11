@@ -116,6 +116,7 @@ class Test():
               print('Champion beat yo ass by %s points! Congratulations!' % (scores[computerTile] - scores[playerTile]))
           
           else:
+              game_wins += 1
               print('The game was a tie!')
           
           print('')

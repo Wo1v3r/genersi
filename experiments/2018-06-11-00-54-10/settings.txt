@@ -11,3 +11,5 @@ ELITISM = False
 NUMBERS = 7
 
 won 28 out of 100
+
+mifletzet!!!
