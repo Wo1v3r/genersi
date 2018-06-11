@@ -1,0 +1,1 @@
+{"div": {"children": ["O", {"if": {"children": ["getScoreOfPlayer", "getScoreOfPlayerO", "getScoreOfPlayerO"]}}]}}
