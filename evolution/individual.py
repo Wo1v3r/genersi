@@ -71,3 +71,11 @@ class IndividualFactory:
     tree.get_node(leaf.identifier).tag = aTerminal
 
     return Individual(tree)
+
+  @staticmethod
+  def elitism(individual):
+      eliteTree = Tree(tree = individual.tree, deep=True)
+      regenerate_ids(tree = eliteTree)
+
+      eliteTree.show()
+      return Individual(eliteTree)

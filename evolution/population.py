@@ -1,7 +1,6 @@
 import random
 from evolution.individual import IndividualFactory
-from settings.variables import CROSSOVER_RATE, MUTATION_RATE, POPULATION_SIZE
-
+from settings.variables import CROSSOVER_RATE, MUTATION_RATE, POPULATION_SIZE, ELITISM, ELITISM_RATE
 
 class Population:
   def __init__(self):
@@ -26,9 +25,13 @@ class Population:
   def reproduce(self):
     newBorn = self.select()
     
-    newBorn = IndividualFactory.crossOver(newBorn, self.select(omit=newBorn)) if random.random() < CROSSOVER_RATE else newBorn
+    if ELITISM and random.random() < ELITISM_RATE:
+      newBorn.tree.show()
+      return IndividualFactory.elitism(individual = newBorn)
 
-    newBorn = IndividualFactory.mutate(newBorn) if random.random() < MUTATION_RATE else newBorn
+    newBorn = IndividualFactory.crossOver(individualA = newBorn, individualB = self.select(omit=newBorn)) if random.random() < CROSSOVER_RATE else newBorn
+
+    newBorn = IndividualFactory.mutate(individual = newBorn) if random.random() < MUTATION_RATE else newBorn
 
     return newBorn
   
