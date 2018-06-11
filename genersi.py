@@ -36,9 +36,8 @@ try:
     generationFitness[str(generation + 1)] = all_fitness
     population.moveGeneration()
 
-except Exception:
+except KeyboardInterrupt:
   traceback.print_exc(file=sys.stdout)
-  pass
 
 
 best_player = population.best()
@@ -49,8 +48,8 @@ print('Contesting champion:')
 
 results = {
   'Noob': contestChampion(isComputer=True, item = item, difficulty= 'NOOB'),
-  'Adept': contestChampion(isComputer=True, item = item, difficulty= 'NOOB'),
-  'Master': contestChampion(isComputer=True, item = item, difficulty= 'NOOB')
+  'Adept': contestChampion(isComputer=True, item = item, difficulty= 'ADEPT'),
+  'Master': contestChampion(isComputer=True, item = item, difficulty= 'MASTER')
 }
 
 closeReport(
