@@ -1,5 +1,5 @@
 from utils.alpha_beta import evaluateBoard
-from controller import ( # python2
+from game.controller import ( # python2
     getNewBoard,
     resetBoard,
     getComputerMove,
