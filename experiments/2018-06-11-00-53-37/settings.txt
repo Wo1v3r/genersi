@@ -9,5 +9,3 @@ TREE_MAX_DEPTH = 15
 TREE_INITIAL_MAX_DEPTH = 5
 ELITISM = False
 NUMBERS = 7
-won 15 out of 100
-without ties
