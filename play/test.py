@@ -13,6 +13,7 @@ from game.controller import (
     getNewBoard,
     resetBoard,
     getBoardWithValidMoves,
+    getValidMoves,
     makeMove,
     getComputerMove,
     gameOver
@@ -47,6 +48,10 @@ class Test():
           while not gameOver(board=mainBoard):
 
               if turn == 'player':
+                if len(getValidMoves(board=mainBoard, tile=playerTile)) == 0:
+                  turn = 'computer'
+                  continue
+
                 if isComputer:
                   move = getComputerMove(mainBoard, playerTile, difficulty = difficulty)  
                 
@@ -72,6 +77,10 @@ class Test():
                 turn = 'computer'
 
               else:
+                if len(getValidMoves(board=mainBoard, tile=computerTile)) == 0:
+                  turn = 'computer'
+                  continue
+
                 if not isComputer:
                   drawBoard(mainBoard)
                   showPoints(playerTile, computerTile, mainBoard)
