@@ -85,8 +85,8 @@ class Test():
                   drawBoard(mainBoard)
                   showPoints(playerTile, computerTile, mainBoard)
                   
-                  # raw_input('Press Enter to see the computer\'s move.') #python 2
-                  input('Press Enter to see the computer\'s move.') #python 3
+                  raw_input('Press Enter to see the computer\'s move.') #python2
+                  # input('Press Enter to see the computer\'s move.') #python3
 
                 x, y = evaluateBoard(mainBoard, computerTile, 2,  self.item)
                 makeMove(mainBoard, computerTile, x, y)

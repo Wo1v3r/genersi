@@ -15,7 +15,7 @@ def drawBoard(board):
         print (y+1, end=' ') #python3
         
         for x in range(8):
-          # print ('| %s' % (board[x][y])), #python2
+        #   print ('| %s' % (board[x][y])), #python2
           print ('| %s' % (board[x][y]), end=' ') #python3
 
         print('|')
@@ -55,7 +55,7 @@ def getPlayerMove(board, playerTile):
         print('Enter your move, or type quit to end the game, or hints to turn off/on hints.')
         
         # move = raw_input().lower() #python2
-        move = input().lower()#python3
+        move = input().lower() #python3
 
         if move == 'quit':
             return 'quit'
