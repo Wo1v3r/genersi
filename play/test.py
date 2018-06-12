@@ -78,7 +78,7 @@ class Test():
 
               else:
                 if len(getValidMoves(board=mainBoard, tile=computerTile)) == 0:
-                  turn = 'computer'
+                  turn = 'player'
                   continue
 
                 if not isComputer:
