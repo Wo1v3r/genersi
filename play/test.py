@@ -14,8 +14,8 @@ from game.controller import (
     resetBoard,
     getBoardWithValidMoves,
     makeMove,
-    getValidMoves,
-    getComputerMove
+    getComputerMove,
+    gameOver
 )
 from utils.alpha_beta import evaluateBoard
 from settings.constants import PLAYER_X, PLAYER_O
@@ -44,52 +44,45 @@ class Test():
           else:
             playerTile, computerTile = rollPlayerTile()
 
-          while True:
-              if turn == 'player':
-                  
-                  if isComputer:
-                    move = getComputerMove(mainBoard, playerTile, difficulty = difficulty)  
-                  
-                  else : 
-                    if showHints:
-                        validMovesBoard = getBoardWithValidMoves(mainBoard, playerTile)
-                        drawBoard(validMovesBoard)
-                    else:
-                        drawBoard(mainBoard)
-                    showPoints(playerTile, computerTile, mainBoard)
-                    move = getPlayerMove(mainBoard, playerTile)
-                  
-                    if move == 'quit':
-                        print('Thanks for playing!')
-                        sys.exit() # terminate the program
-                  
-                    elif move == 'hints':
-                        showHints = not showHints
-                        continue
-                  
-                  makeMove(mainBoard, playerTile, move[0], move[1])
+          while not gameOver(board=mainBoard):
 
-                  if getValidMoves(mainBoard, computerTile) == []:
-                      break
-                  
+              if turn == 'player':
+                if isComputer:
+                  move = getComputerMove(mainBoard, playerTile, difficulty = difficulty)  
+                
+                else : 
+                  if showHints:
+                      validMovesBoard = getBoardWithValidMoves(mainBoard, playerTile)
+                      drawBoard(validMovesBoard)
                   else:
-                      turn = 'computer'
+                      drawBoard(mainBoard)
+                  showPoints(playerTile, computerTile, mainBoard)
+                  move = getPlayerMove(mainBoard, playerTile)
+                
+                  if move == 'quit':
+                      print('Thanks for playing!')
+                      sys.exit() # terminate the program
+                
+                  elif move == 'hints':
+                      showHints = not showHints
+                      continue
+                
+                makeMove(mainBoard, playerTile, move[0], move[1])
+                
+                turn = 'computer'
 
               else:
-                  if not isComputer:
-                    drawBoard(mainBoard)
-                    showPoints(playerTile, computerTile, mainBoard)
-                    
-                    # raw_input('Press Enter to see the computer\'s move.') #python 2
-                    input('Press Enter to see the computer\'s move.') #python 3
+                if not isComputer:
+                  drawBoard(mainBoard)
+                  showPoints(playerTile, computerTile, mainBoard)
+                  
+                  # raw_input('Press Enter to see the computer\'s move.') #python 2
+                  input('Press Enter to see the computer\'s move.') #python 3
 
-                  x, y = evaluateBoard(mainBoard, computerTile, 2,  self.item)
-                  makeMove(mainBoard, computerTile, x, y)
+                x, y = evaluateBoard(mainBoard, computerTile, 2,  self.item)
+                makeMove(mainBoard, computerTile, x, y)
 
-                  if getValidMoves(mainBoard, playerTile) == []:
-                      break
-                  else:
-                      turn = 'player'
+                turn = 'player'
 
           if not isComputer:
             drawBoard(mainBoard)
