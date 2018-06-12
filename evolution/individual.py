@@ -76,6 +76,6 @@ class IndividualFactory:
   def elitism(individual):
       eliteTree = Tree(tree = individual.tree, deep=True)
       regenerate_ids(tree = eliteTree)
-
-      eliteTree.show()
-      return Individual(eliteTree)
+      elite = Individual(eliteTree)
+      elite.id = individual.id
+      return elite

@@ -34,7 +34,9 @@ try:
       all_fitness.append(item.fitness)
 
     generationFitness[str(generation + 1)] = all_fitness
-    population.moveGeneration()
+    
+    if GENERATIONS != generation + 1:
+      population.moveGeneration()
 
 except KeyboardInterrupt:
   traceback.print_exc(file=sys.stdout)

@@ -14,20 +14,10 @@ class Population:
     return item1 if item1 > item2 else item2
 
   def best(self):
-    best_player = self.items[0]
+    return max(self.items)
 
-    for item in self.items:
-      if item > best_player:
-        best_player = item
-
-    return best_player
-  
   def reproduce(self):
     newBorn = self.select()
-    
-    if ELITISM and random.random() < ELITISM_RATE:
-      newBorn.tree.show()
-      return IndividualFactory.elitism(individual = newBorn)
 
     newBorn = IndividualFactory.crossOver(individualA = newBorn, individualB = self.select(omit=newBorn)) if random.random() < CROSSOVER_RATE else newBorn
 
@@ -37,8 +27,16 @@ class Population:
   
   def moveGeneration(self):
     self.nextGeneration = []
-    
-    for _ in range(POPULATION_SIZE):
+
+    if ELITISM:
+      self.items.sort()
+      elitesCount = int( x = round(ELITISM_RATE * POPULATION_SIZE) )
+
+      for _ in range(elitesCount):
+        elite = self.items.pop()
+        self.nextGeneration.append(IndividualFactory.elitism(individual = elite))
+
+    for _ in self.items:
       self.nextGeneration.append(self.reproduce())
     
     self.items = self.nextGeneration
